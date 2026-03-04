@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Velar 0X</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            flex-direction: column;
+        }
+        #symbol {
+            margin-bottom: 20px;
+        }
+        #hint {
+            display: none;
+            font-size: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="symbol">
+    <!-- Hier kommt dein Symbol hin -->
+    <img src="symbol.png" alt="Velar 0X Symbol" width="200">
+</div>
+
+<h1>Velar 0X</h1>
+
+<div id="hint">
+    <p>Phase 1 aktiv.</p>
+    <p>Iteration beginnt.</p>
+</div>
+
+<script>
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 22) {
+        document.getElementById("hint").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
