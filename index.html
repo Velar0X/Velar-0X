@@ -9,7 +9,7 @@
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden; /* verhindert Scrollbalken */
+            overflow: hidden;
             background-color: black;
             font-family: Arial, sans-serif;
             color: white;
@@ -23,25 +23,27 @@
             width: 100%;
             height: 100%;
             background: url('symbol.png') no-repeat center center;
-            background-size: cover; /* Symbol füllt die ganze Seite */
+            background-size: cover;
             z-index: 1;
         }
 
-        h1 {
+        #name {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 64px;
+            bottom: 50px;          /* Abstand vom unteren Rand */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;  /* Velar links, 0X rechts */
+            padding: 0 50px;       /* Abstand zu den Seiten */
+            font-size: 48px;
             letter-spacing: 2px;
+            color: white;
             z-index: 2;
-            margin: 0;
         }
 
         #hint {
             display: none;
             position: absolute;
-            bottom: 50px;
+            bottom: 120px;        /* etwas über dem Namen */
             width: 100%;
             font-size: 24px;
             z-index: 2;
@@ -52,7 +54,10 @@
 
 <div id="symbol"></div>
 
-<h1>Velar 0X</h1>
+<div id="name">
+    <span id="left">Velar</span>
+    <span id="right">0X</span>
+</div>
 
 <div id="hint">
     <p>Phase 1 aktiv.</p>
@@ -70,6 +75,8 @@
 
 </body>
 </html>
+
+
 
 
 
