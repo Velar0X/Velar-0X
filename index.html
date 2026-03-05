@@ -1,57 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Velar 0X</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: black;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<title>Velar 0X</title>
 
-        #symbol {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('symbol.png') no-repeat center center;
-            background-size: cover;
-            z-index: 1;
-        }
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
 
-        #name-left, #name-right {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 80px;
-            color: white;
-            z-index: 2;
-        }
+/* SYMBOL */
+#symbol {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('symbol.png') no-repeat center center;
+    background-size: cover;
+    z-index: 1;
+    animation: breathe 20s ease-in-out infinite;
+}
 
-        #name-left { left: 50px; }
-        #name-right { right: 50px; }
+/* Symbol "Atmen" */
+@keyframes breathe {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
 
-        #hint {
-            display: none;
-            position: fixed;
-            bottom: 50px;
-            width: 100%;
-            text-align: center;
-            font-size: 28px;
-            color: white;
-            z-index: 2;
-        }
-    </style>
+/* Text */
+#name-left, #name-right {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 90px;
+    color: white;
+    z-index: 3;
+    transition: transform 0.1s ease;
+}
+
+#name-left { left: 60px; }
+#name-right { right: 60px; }
+
+/* Lichtpuls */
+#light {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%);
+    animation: pulseLight 15s infinite;
+    z-index: 2;
+}
+
+@keyframes pulseLight {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+/* Grain Overlay */
+#grain {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    z-index: 4;
+    pointer-events: none;
+}
+
+#hint {
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    color: white;
+    z-index: 5;
+}
+</style>
 </head>
+
 <body>
 
 <div id="symbol"></div>
+<div id="light"></div>
+<div id="grain"></div>
 
 <div id="name-left">Velar</div>
 <div id="name-right">0X</div>
@@ -61,32 +103,54 @@
     <p>Iteration beginnt.</p>
 </div>
 
-<!-- Audio -->
 <audio id="background-sound" src="ticking.mp3" loop></audio>
 
 <script>
-    const audio = document.getElementById("background-sound");
-    audio.volume = 0.25;
+const audio = document.getElementById("background-sound");
+audio.volume = 0.3;
 
-    // Sound erst nach Klick starten (Browser Autoplay-sicher)
-    document.body.addEventListener("click", () => {
-        audio.play();
-    });
+// Klick zum Starten (Browser-Schutz umgehen)
+document.body.addEventListener("click", () => {
+    audio.play();
+});
 
-    // Hinweis nur zwischen 22:00 und 0:00 anzeigen
-    const now = new Date();
-    const hour = now.getHours();
-    if (hour >= 22 && hour < 24) {
-        document.getElementById("hint").style.display = "block";
-    } else {
-        document.getElementById("hint").style.display = "none";
+// Tick-Impuls Effekt
+audio.addEventListener("timeupdate", () => {
+    if (Math.floor(audio.currentTime) % 2 === 0) {
+        document.getElementById("name-right").style.transform =
+            "translateY(-50%) scale(1.04)";
+        setTimeout(() => {
+            document.getElementById("name-right").style.transform =
+                "translateY(-50%) scale(1)";
+        }, 120);
     }
+});
+
+// Text-Flackern
+setInterval(() => {
+    const left = document.getElementById("name-left");
+    const right = document.getElementById("name-right");
+
+    left.style.opacity = "0.75";
+    right.style.opacity = "0.75";
+
+    setTimeout(() => {
+        left.style.opacity = "1";
+        right.style.opacity = "1";
+    }, 120);
+
+}, 25000);
+
+// Hinweis nur 22–0 Uhr
+const now = new Date();
+const hour = now.getHours();
+if (hour >= 22 && hour < 24) {
+    document.getElementById("hint").style.display = "block";
+}
 </script>
 
 </body>
 </html>
-
-
 
 
 
