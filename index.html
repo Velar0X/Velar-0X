@@ -5,6 +5,7 @@
 <title>Velar 0X</title>
 
 <style>
+/* Grundlayout */
 html, body {
     margin: 0;
     padding: 0;
@@ -13,6 +14,26 @@ html, body {
     background-color: black;
     overflow: hidden;
     font-family: Arial, sans-serif;
+}
+
+/* Cinematic Filter Wrapper */
+#cinematic-filter {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: contrast(1.07) brightness(0.94) saturate(0.95);
+}
+
+/* Vignette */
+#cinematic-filter::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: inset 0 0 250px rgba(0, 0, 0, 0.55);
 }
 
 /* SYMBOL */
@@ -43,7 +64,7 @@ html, body {
     font-size: 90px;
     color: white;
     z-index: 3;
-    transition: transform 0.1s ease;
+    transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 #name-left { left: 60px; }
@@ -76,6 +97,7 @@ html, body {
     pointer-events: none;
 }
 
+/* Hinweis */
 #hint {
     display: none;
     position: fixed;
@@ -90,6 +112,7 @@ html, body {
 </head>
 
 <body>
+<div id="cinematic-filter">
 
 <div id="symbol"></div>
 <div id="light"></div>
@@ -109,7 +132,7 @@ html, body {
 const audio = document.getElementById("background-sound");
 audio.volume = 0.3;
 
-// Klick zum Starten (Browser-Schutz umgehen)
+// Klick zum Starten (Browser Autoplay)
 document.body.addEventListener("click", () => {
     audio.play();
 });
@@ -117,16 +140,15 @@ document.body.addEventListener("click", () => {
 // Tick-Impuls Effekt
 audio.addEventListener("timeupdate", () => {
     if (Math.floor(audio.currentTime) % 2 === 0) {
-        document.getElementById("name-right").style.transform =
-            "translateY(-50%) scale(1.04)";
+        const right = document.getElementById("name-right");
+        right.style.transform = "translateY(-50%) scale(1.04)";
         setTimeout(() => {
-            document.getElementById("name-right").style.transform =
-                "translateY(-50%) scale(1)";
+            right.style.transform = "translateY(-50%) scale(1)";
         }, 120);
     }
 });
 
-// Text-Flackern
+// Text-Flackern alle 25 Sekunden
 setInterval(() => {
     const left = document.getElementById("name-left");
     const right = document.getElementById("name-right");
@@ -149,6 +171,7 @@ if (hour >= 22 && hour < 24) {
 }
 </script>
 
+</div>
 </body>
 </html>
 
