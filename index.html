@@ -14,6 +14,7 @@
             font-family: Arial, sans-serif;
         }
 
+        /* Symbol fullscreen */
         #symbol {
             position: fixed;
             top: 0;
@@ -25,11 +26,12 @@
             z-index: 1;
         }
 
+        /* Name links/rechts mittig vertikal */
         #name-left, #name-right {
             position: fixed;
-            top: 50%; /* vertikal mittig */
+            top: 50%;
             transform: translateY(-50%);
-            font-size: 80px; /* Größe kann angepasst werden */
+            font-size: 80px; /* kann angepasst werden */
             color: white;
             z-index: 2;
         }
@@ -37,6 +39,7 @@
         #name-left { left: 50px; }
         #name-right { right: 50px; }
 
+        /* Hinweis */
         #hint {
             display: none;
             position: fixed;
@@ -62,24 +65,28 @@
 </div>
 
 <!-- Audio -->
-<audio id="background-sound" src="ticking.mp3" autoplay loop></audio>
+<audio id="background-sound" src="ticking.mp3" loop></audio>
 
 <script>
-    const now = new Date();
-    const hour = now.getHours();
+    const audio = document.getElementById("background-sound");
+    audio.volume = 0.25; // Lautstärke 25%
+
+    // Sound startet erst nach Klick, wegen Browser-Autoplay-Blocker
+    document.body.addEventListener("click", () => {
+        audio.play();
+    });
 
     // Hinweis um 22 Uhr anzeigen
+    const now = new Date();
+    const hour = now.getHours();
     if (hour >= 22) {
         document.getElementById("hint").style.display = "block";
     }
-
-    // Lautstärke des Tick-Tack einstellen
-    const audio = document.getElementById("background-sound");
-    audio.volume = 0.25; // 25% Lautstärke, nicht zu laut
 </script>
 
 </body>
 </html>
+
 
 
 
