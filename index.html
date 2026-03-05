@@ -88,48 +88,33 @@ html, body {
     transform: translateY(-50%);
     color: white;
     z-index: 3;
-    display: flex;
-    align-items: center;
     font-weight: bold;
+    white-space: nowrap; /* verhindert Zeilenumbruch */
 }
 
-/* Velar sauber positioniert */
+/* Velar komplett links vom Kreis */
 #name-left {
-    left: 5%;
-    display: flex;
-    align-items: center;
-}
-
-#name-left #vela {
-    margin-right: 5px;
-}
-
-#name-left #r {
-    margin-left: 25px; /* R sitzt außerhalb des Kreises */
-}
-
-#name-right {
-    right: 5%;
-}
-
-/* Responsive Textgrößen */
-#name-left, #name-right {
+    left: 5%; /* Abstand vom linken Rand */
     font-size: 90px;
 }
 
+/* Rechts 0X */
+#name-right {
+    right: 5%;
+    font-size: 90px;
+}
+
+/* Responsive Textgrößen */
 @media (max-width: 1024px) {
     #name-left, #name-right { font-size: 70px; }
-    #name-left #r { margin-left: 15px; }
 }
 
 @media (max-width: 768px) {
     #name-left, #name-right { font-size: 50px; }
-    #name-left #r { margin-left: 10px; }
 }
 
 @media (max-width: 480px) {
     #name-left, #name-right { font-size: 35px; }
-    #name-left #r { margin-left: 6px; }
 }
 
 /* Hinweis */
@@ -153,12 +138,8 @@ html, body {
 <div id="light"></div>
 <div id="grain"></div>
 
-<!-- Velar mit sauberem Abstand für R -->
-<div id="name-left">
-  <span id="vela">Vela</span>
-  <span id="r">r</span>
-</div>
-
+<!-- Velar komplett als Einheit -->
+<div id="name-left">Velar</div>
 <div id="name-right">0X</div>
 
 <div id="hint">
@@ -246,5 +227,7 @@ scheduleGlitch();
 </div>
 </body>
 </html>
+
+
 
 
