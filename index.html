@@ -130,12 +130,16 @@ html, body {
 
 <script>
 const audio = document.getElementById("background-sound");
-audio.volume = 0.3;
 
-// Klick zum Starten (Browser Autoplay)
+// Erstes Klick-Event: Sound + Vollbild
 document.body.addEventListener("click", () => {
     audio.play();
-});
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch((err) => {
+            console.log("Vollbild konnte nicht gestartet werden: " + err.message);
+        });
+    }
+}, { once: true });
 
 // Tick-Impuls Effekt
 audio.addEventListener("timeupdate", () => {
@@ -176,17 +180,15 @@ function triggerGlitch() {
     const left = document.getElementById("name-left");
     const right = document.getElementById("name-right");
 
-    // Symbol & Text minimal verschieben
     symbol.style.transform = "scale(1.02) translateX(1px)";
     left.style.transform = "translateY(-50%) translateX(-1px)";
     right.style.transform = "translateY(-50%) translateX(1px)";
 
-    // Kurz zurücksetzen
     setTimeout(() => {
         symbol.style.transform = "scale(1.02) translateX(0)";
         left.style.transform = "translateY(-50%)";
         right.style.transform = "translateY(-50%)";
-    }, 500); // 0.5 Sekunden
+    }, 500);
 }
 
 // Zufällige Glitchs alle 20–60 Sekunden
@@ -194,11 +196,9 @@ function scheduleGlitch() {
     const randomTime = Math.random() * (60000 - 20000) + 20000;
     setTimeout(() => {
         triggerGlitch();
-        scheduleGlitch(); // wiederholen
+        scheduleGlitch();
     }, randomTime);
 }
-
-// Glitch-Loop starten
 scheduleGlitch();
 
 </script>
@@ -206,5 +206,6 @@ scheduleGlitch();
 </div>
 </body>
 </html>
+
 
 
