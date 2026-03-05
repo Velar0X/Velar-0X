@@ -14,7 +14,6 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Symbol fullscreen */
         #symbol {
             position: fixed;
             top: 0;
@@ -26,25 +25,18 @@
             z-index: 1;
         }
 
-        /* Name links/rechts mittig vertikal */
         #name-left, #name-right {
             position: fixed;
             top: 50%; /* vertikal mittig */
             transform: translateY(-50%);
-            font-size: 80px; /* Größe anpassen */
+            font-size: 80px; /* Größe kann angepasst werden */
             color: white;
             z-index: 2;
         }
 
-        #name-left {
-            left: 50px; /* Abstand vom linken Rand */
-        }
+        #name-left { left: 50px; }
+        #name-right { right: 50px; }
 
-        #name-right {
-            right: 50px; /* Abstand vom rechten Rand */
-        }
-
-        /* Hinweis */
         #hint {
             display: none;
             position: fixed;
@@ -69,19 +61,25 @@
     <p>Iteration beginnt.</p>
 </div>
 
+<!-- Audio -->
+<audio id="background-sound" src="ticking.mp3" autoplay loop></audio>
+
 <script>
     const now = new Date();
     const hour = now.getHours();
 
+    // Hinweis um 22 Uhr anzeigen
     if (hour >= 22) {
         document.getElementById("hint").style.display = "block";
     }
+
+    // Lautstärke des Tick-Tack einstellen
+    const audio = document.getElementById("background-sound");
+    audio.volume = 0.25; // 25% Lautstärke, nicht zu laut
 </script>
 
 </body>
 </html>
-
-
 
 
 
