@@ -14,7 +14,6 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Symbol fullscreen */
         #symbol {
             position: fixed;
             top: 0;
@@ -26,12 +25,11 @@
             z-index: 1;
         }
 
-        /* Name links/rechts mittig vertikal */
         #name-left, #name-right {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 80px; /* kann angepasst werden */
+            font-size: 80px;
             color: white;
             z-index: 2;
         }
@@ -39,7 +37,6 @@
         #name-left { left: 50px; }
         #name-right { right: 50px; }
 
-        /* Hinweis */
         #hint {
             display: none;
             position: fixed;
@@ -69,18 +66,20 @@
 
 <script>
     const audio = document.getElementById("background-sound");
-    audio.volume = 0.25; // Lautstärke 25%
+    audio.volume = 0.25;
 
-    // Sound startet erst nach Klick, wegen Browser-Autoplay-Blocker
+    // Sound erst nach Klick starten (Browser Autoplay-sicher)
     document.body.addEventListener("click", () => {
         audio.play();
     });
 
-    // Hinweis um 22 Uhr anzeigen
+    // Hinweis nur zwischen 22:00 und 0:00 anzeigen
     const now = new Date();
     const hour = now.getHours();
-    if (hour >= 22) {
+    if (hour >= 22 && hour < 24) {
         document.getElementById("hint").style.display = "block";
+    } else {
+        document.getElementById("hint").style.display = "none";
     }
 </script>
 
