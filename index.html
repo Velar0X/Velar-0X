@@ -169,11 +169,42 @@ const hour = now.getHours();
 if (hour >= 22 && hour < 24) {
     document.getElementById("hint").style.display = "block";
 }
+
+// Mini-Glitch-Effekt
+function triggerGlitch() {
+    const symbol = document.getElementById("symbol");
+    const left = document.getElementById("name-left");
+    const right = document.getElementById("name-right");
+
+    // Symbol & Text minimal verschieben
+    symbol.style.transform = "scale(1.02) translateX(1px)";
+    left.style.transform = "translateY(-50%) translateX(-1px)";
+    right.style.transform = "translateY(-50%) translateX(1px)";
+
+    // Kurz zurücksetzen
+    setTimeout(() => {
+        symbol.style.transform = "scale(1.02) translateX(0)";
+        left.style.transform = "translateY(-50%)";
+        right.style.transform = "translateY(-50%)";
+    }, 500); // 0.5 Sekunden
+}
+
+// Zufällige Glitchs alle 20–60 Sekunden
+function scheduleGlitch() {
+    const randomTime = Math.random() * (60000 - 20000) + 20000;
+    setTimeout(() => {
+        triggerGlitch();
+        scheduleGlitch(); // wiederholen
+    }, randomTime);
+}
+
+// Glitch-Loop starten
+scheduleGlitch();
+
 </script>
 
 </div>
 </body>
 </html>
-
 
 
