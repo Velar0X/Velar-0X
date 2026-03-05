@@ -56,19 +56,26 @@ html, body {
     100% { transform: scale(1); }
 }
 
-/* Text */
-#name-left, #name-right {
+/* Text links/rechts außerhalb der Kreise */
+#name-left {
     position: fixed;
     top: 50%;
+    left: 10%; /* außerhalb des linken Kreises */
     transform: translateY(-50%);
     font-size: 90px;
     color: white;
     z-index: 3;
-    transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
-#name-left { left: 60px; }
-#name-right { right: 60px; }
+#name-right {
+    position: fixed;
+    top: 50%;
+    right: 10%; /* außerhalb des rechten Kreises */
+    transform: translateY(-50%);
+    font-size: 90px;
+    color: white;
+    z-index: 3;
+}
 
 /* Lichtpuls */
 #light {
@@ -206,6 +213,5 @@ scheduleGlitch();
 </div>
 </body>
 </html>
-
 
 
