@@ -26,27 +26,32 @@
             z-index: 1;
         }
 
-        /* Name unten links/rechts */
-        #name {
+        /* Name links/rechts mittig vertikal */
+        #name-left, #name-right {
             position: fixed;
-            bottom: 50px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 50px;
-            font-size: 48px;
+            top: 50%; /* vertikal mittig */
+            transform: translateY(-50%);
+            font-size: 80px; /* Größe anpassen */
             color: white;
             z-index: 2;
+        }
+
+        #name-left {
+            left: 50px; /* Abstand vom linken Rand */
+        }
+
+        #name-right {
+            right: 50px; /* Abstand vom rechten Rand */
         }
 
         /* Hinweis */
         #hint {
             display: none;
             position: fixed;
-            bottom: 120px;
+            bottom: 50px;
             width: 100%;
             text-align: center;
-            font-size: 24px;
+            font-size: 28px;
             color: white;
             z-index: 2;
         }
@@ -56,10 +61,8 @@
 
 <div id="symbol"></div>
 
-<div id="name">
-    <span>Velar</span>
-    <span>0X</span>
-</div>
+<div id="name-left">Velar</div>
+<div id="name-right">0X</div>
 
 <div id="hint">
     <p>Phase 1 aktiv.</p>
