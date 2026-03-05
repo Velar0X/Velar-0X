@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <title>Velar 0X</title>
 
 <style>
-/* Grundlayout */
 html, body {
     margin: 0;
     padding: 0;
@@ -33,7 +32,7 @@ html, body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    box-shadow: inset 0 0 250px rgba(0, 0, 0, 0.55);
+    box-shadow: inset 0 0 250px rgba(0,0,0,0.55);
 }
 
 /* SYMBOL */
@@ -49,32 +48,10 @@ html, body {
     animation: breathe 20s ease-in-out infinite;
 }
 
-/* Symbol "Atmen" */
 @keyframes breathe {
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
     100% { transform: scale(1); }
-}
-
-/* Text links/rechts außerhalb der Kreise */
-#name-left {
-    position: fixed;
-    top: 50%;
-    left: 10%; /* außerhalb des linken Kreises */
-    transform: translateY(-50%);
-    font-size: 90px;
-    color: white;
-    z-index: 3;
-}
-
-#name-right {
-    position: fixed;
-    top: 50%;
-    right: 10%; /* außerhalb des rechten Kreises */
-    transform: translateY(-50%);
-    font-size: 90px;
-    color: white;
-    z-index: 3;
 }
 
 /* Lichtpuls */
@@ -104,6 +81,57 @@ html, body {
     pointer-events: none;
 }
 
+/* TEXT LINKS / RECHTS */
+#name-left, #name-right {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Velar sauber positioniert */
+#name-left {
+    left: 5%;
+    display: flex;
+    align-items: center;
+}
+
+#name-left #vela {
+    margin-right: 5px;
+}
+
+#name-left #r {
+    margin-left: 25px; /* R sitzt außerhalb des Kreises */
+}
+
+#name-right {
+    right: 5%;
+}
+
+/* Responsive Textgrößen */
+#name-left, #name-right {
+    font-size: 90px;
+}
+
+@media (max-width: 1024px) {
+    #name-left, #name-right { font-size: 70px; }
+    #name-left #r { margin-left: 15px; }
+}
+
+@media (max-width: 768px) {
+    #name-left, #name-right { font-size: 50px; }
+    #name-left #r { margin-left: 10px; }
+}
+
+@media (max-width: 480px) {
+    #name-left, #name-right { font-size: 35px; }
+    #name-left #r { margin-left: 6px; }
+}
+
 /* Hinweis */
 #hint {
     display: none;
@@ -125,7 +153,12 @@ html, body {
 <div id="light"></div>
 <div id="grain"></div>
 
-<div id="name-left">Velar</div>
+<!-- Velar mit sauberem Abstand für R -->
+<div id="name-left">
+  <span id="vela">Vela</span>
+  <span id="r">r</span>
+</div>
+
 <div id="name-right">0X</div>
 
 <div id="hint">
