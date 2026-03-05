@@ -4,35 +4,49 @@
     <meta charset="UTF-8">
     <title>Velar 0X</title>
     <style>
-        body {
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
             background-color: black;
-            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             font-family: Arial, sans-serif;
+            color: white;
             text-align: center;
             flex-direction: column;
         }
+
         #symbol {
-            margin-bottom: 20px;
+            width: 100vw;
+            height: 100vh;
+            background: url('symbol.png') no-repeat center center;
+            background-size: contain; /* Symbol skalieren, ohne verzerrt zu werden */
         }
+
+        h1 {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(150px); /* Name leicht unterhalb des Symbols */
+            font-size: 48px;
+            letter-spacing: 2px;
+            color: white;
+        }
+
         #hint {
             display: none;
-            font-size: 20px;
-        }
-        h1 {
-            margin: 0;
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
 
-<div id="symbol">
-    <!-- Hier kommt dein Symbol hin -->
-    <img src="symbol.png" alt="Velar 0X Symbol" width="200">
-</div>
+<div id="symbol"></div>
 
 <h1>Velar 0X</h1>
 
@@ -52,3 +66,5 @@
 
 </body>
 </html>
+
+
