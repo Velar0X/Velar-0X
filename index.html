@@ -75,6 +75,186 @@ html, body {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-image: url('http
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* TEXT LINKS / RECHTS */
+#name-left, #name-right {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    z-index: 3;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: transform 1.5s ease-in-out;
+}
+
+/* Velar komplett links vom Kreis */
+#name-left {
+    left: 5%;
+    font-size: 90px;
+}
+
+/* Rechts 0X */
+#name-right {
+    right: 5%;
+    font-size: 90px;
+}
+
+/* Hinweis Vollbild */
+#hint-fullscreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    z-index: 10;
+    font-size: 48px;
+    font-style: italic;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0 25px rgba(255,255,255,0.6);
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    padding: 20px;
+}
+
+/* Responsive Textgrößen */
+@media (max-width: 1024px) {
+    #name-left, #name-right { font-size: 70px; }
+    #hint-fullscreen { font-size: 36px; }
+}
+
+@media (max-width: 768px) {
+    #name-left, #name-right { font-size: 50px; }
+    #hint-fullscreen { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+    #name-left, #name-right { font-size: 35px; }
+    #hint-fullscreen { font-size: 20px; }
+}
+</style>
+</head>
+
+<body>
+<div id="cinematic-filter">
+
+<div id="symbol"></div>
+<div id="light"></div>
+<div id="grain"></div>
+
+<!-- Velar und 0X -->
+<div id="name-left">Velar</div>
+<div id="name-right">0X</div>
+
+<!-- Vollbild-Hinweis -->
+<div id="hint-fullscreen">
+    Between shadow and light lies the key.
+</div>
+
+<audio id="background-sound" src="ticking.mp3" loop></audio>
+
+<script>
+const audio = document.getElementById("background-sound");
+const leftText = document.getElementById("name-left");
+const rightText = document.getElementById("name-right");
+const hint = document.getElementById("hint-fullscreen");
+
+// Erstes Klick-Event: Sound + Vollbild
+document.body.addEventListener("click", () => {
+    audio.play();
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch((err) => {
+            console.log("Vollbild konnte nicht gestartet werden: " + err.message);
+        });
+    }
+}, { once: true });
+
+// Tick-Impuls Effekt für 0X
+audio.addEventListener("timeupdate", () => {
+    if (Math.floor(audio.currentTime) % 2 === 0) {
+        rightText.style.transform = "translateY(-50%) scale(1.04)";
+        setTimeout(() => {
+            rightText.style.transform = "translateY(-50%) scale(1)";
+        }, 120);
+    }
+});
+
+// Sanftes Schweben für Velar und 0X
+let pulseDirection = 1;
+setInterval(() => {
+    leftText.style.transform = `translateY(calc(-50% + ${pulseDirection}px))`;
+    rightText.style.transform = `translateY(calc(-50% + ${pulseDirection}px))`;
+    pulseDirection *= -1;
+}, 2000); // alle 2 Sekunden leicht auf und ab
+
+// Text-Flackern alle 25 Sekunden
+setInterval(() => {
+    leftText.style.opacity = "0.75";
+    rightText.style.opacity = "0.75";
+    setTimeout(() => {
+        leftText.style.opacity = "1";
+        rightText.style.opacity = "1";
+    }, 120);
+}, 25000);
+
+// Vollbild-Hinweis zwischen 22:00 und 0:00 Uhr anzeigen
+function updateHintVisibility() {
+    const now = new Date();
+    const hour = now.getHours();
+    if (hour >= 22 || hour < 0) {
+        hint.style.display = "flex";
+        setTimeout(() => { hint.style.opacity = 1; }, 100); // sanft einblenden
+    } else {
+        hint.style.opacity = 0; // sanft ausblenden
+        setTimeout(() => { hint.style.display = "none"; }, 2000); // nach Fade out entfernen
+    }
+}
+
+// Initial prüfen + jede Minute aktualisieren
+updateHintVisibility();
+setInterval(updateHintVisibility, 60000);
+
+// Mini-Glitch-Effekt
+function triggerGlitch() {
+    const symbol = document.getElementById("symbol");
+
+    symbol.style.transform = "scale(1.02) translateX(1px)";
+    leftText.style.transform = "translateY(-50%) translateX(-1px)";
+    rightText.style.transform = "translateY(-50%) translateX(1px)";
+
+    setTimeout(() => {
+        symbol.style.transform = "scale(1.02) translateX(0)";
+        leftText.style.transform = "translateY(-50%)";
+        rightText.style.transform = "translateY(-50%)";
+    }, 500);
+}
+
+// Zufällige Glitchs alle 20–60 Sekunden
+function scheduleGlitch() {
+    const randomTime = Math.random() * (60000 - 20000) + 20000;
+    setTimeout(() => {
+        triggerGlitch();
+        scheduleGlitch();
+    }, randomTime);
+}
+scheduleGlitch();
+
+</script>
+
+</div>
+</body>
+</html>
+
 
 
